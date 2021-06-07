@@ -156,10 +156,10 @@ namespace ompl
                 return std::make_shared<ODESolverStatePropagator>(std::move(solver), postEvent);
             }
 
-        protected:
             /// \brief Solve the ODE given the initial state, and a control to apply for some duration.
             virtual void solve(StateType &state, const Control *control, double duration) const = 0;
 
+        protected:
             /// \brief The SpaceInformation that this ODESolver operates in.
             const SpaceInformationPtr si_;
 
@@ -206,7 +206,6 @@ namespace ompl
             {
             }
 
-        protected:
             /// \brief Solve the ODE using boost::numeric::odeint.
             void solve(StateType &state, const Control *control, double duration) const override
             {
@@ -239,7 +238,6 @@ namespace ompl
                 return error_;
             }
 
-        protected:
             /// \brief Solve the ODE using boost::numeric::odeint.  Save the resulting error values into error_.
             void solve(StateType &state, const Control *control, double duration) const override
             {
@@ -258,6 +256,8 @@ namespace ompl
                     time += intStep_;
                 }
             }
+
+        protected:
 
             /// \brief The error values calculated during numerical integration
             mutable ODESolver::StateType error_;
@@ -304,7 +304,6 @@ namespace ompl
                 maxEpsilonError_ = error;
             }
 
-        protected:
             /// \brief Solve the ordinary differential equation given the input state
             /// of the system, a control to apply to the system, and the duration to
             /// apply the control.  The value of \e state will contain the final
@@ -316,6 +315,7 @@ namespace ompl
                 odeint::integrate_adaptive(solver, odefunc, state, 0.0, duration, intStep_);
             }
 
+        protected:
             /// \brief The maximum error allowed when performing numerical integration
             double maxError_;
 
